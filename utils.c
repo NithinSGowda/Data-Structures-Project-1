@@ -6,6 +6,8 @@
 
 terminal* createTerminals(int numOfTerminals,int sizeOfTerminal)
 {
+    printf("createterminals start\n\n");
+
     terminal *head=(terminal *)malloc(sizeof(terminal));
     terminal *temp=head;
     int i=1;
@@ -22,12 +24,16 @@ terminal* createTerminals(int numOfTerminals,int sizeOfTerminal)
         i++;
     }
     temp->next=NULL;
+
+    printf("createterminals done\n\n");
     return head;
 }
 
 
 terminal* beginner()
 {
+    printf("Started beginner\n\n");
+
     printf("Welcome to Airport Check-in terminal simulator\n\n");
     printf("Press any to start\n");
     getchar();
@@ -41,27 +47,39 @@ terminal* beginner()
     printf("Enter max size for a queue at terminal : ");
     scanf("%s",tempString);
     sizeOfTerminal=atoi(tempString);
+
+    printf("Ended beginner\n\n");
     return createTerminals(numOfTerminals,sizeOfTerminal);
 }
 
 terminal* initialise(terminal *head)
 {
+    printf("Started initialise\n\n");
+
     terminal *temp=head;
-    int i;
+    int i=0;
     while(temp!=NULL)
     {
         srand(time(NULL)+rand());
         while(i<rand()%30)
         {
-            temp->q.person=addPersonToQueue(temp->q.person,rand()%5);
+            printf("%d",rand()%30);
+            temp->q.person=addPersonToQueue(temp->q.person,(rand()%5));
             temp->q.queueSize++;
+            i++;
         }
         temp=temp->next;
     }
+    
+    printf("Ended initialise\n\n");
+    return head;
+
 }
 
 person* addPersonToQueue(person *head,int priority)
 {
+    printf("Started addPersonToQueue\n\n");
+
     person *temp=head;
     person *tempPerson=(person *)malloc(sizeof(person)),*tempPrev;
     srand(time(NULL)+rand());
@@ -70,6 +88,7 @@ person* addPersonToQueue(person *head,int priority)
     if(head==NULL)
     {
         tempPerson->next=NULL;
+        printf("Ended addPersonToQueue\n\n");
         return tempPerson;
     }
     while(temp!=NULL)
@@ -86,14 +105,23 @@ person* addPersonToQueue(person *head,int priority)
             return head;
         }
     }
+
+    printf("Ended addPersonToQueue\n\n");
+
     return head;
 }
 
 terminal* initialisePrompt(terminal *head)
 {
+    printf("Started initialisePrompt\n\n");
+    
     char c;
     printf("Do you want to initialise the terminals with test passengers[y/n]\n");
-    scanf("%c",&c);
+    scanf(" %c",&c);
+
+
+    printf("Ended initialisePrompt\n\n");
+
     if(c=='y')
         return initialise(head);
     else

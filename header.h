@@ -21,7 +21,7 @@ typedef struct people{
 
 terminal* createTerminals(int,int);
 terminal* beginner();
-person* addPersonToQueue(person*,int);
+person* addPersonToQueue(person *,int);
 terminal* initialisePrompt(terminal*);
 terminal* initialise(terminal*);
 
