@@ -20,4 +20,4 @@ terminal* beginner();
 person* addPersonToQueue(person *,int);
 terminal* initialisePrompt(terminal*);
 terminal* initialise(terminal*);
-
+void displayQueues(terminal*);
