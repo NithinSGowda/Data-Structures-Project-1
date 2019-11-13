@@ -66,7 +66,7 @@ terminal* initialise(terminal *head)
         {
             printf("%d",rand()%head->maxCapacity);
             temp->q.person=addPersonToQueue(temp->q.person,(rand()%5));
-            temp->q.queueSize++;
+            temp->curStatus++;
             i++;
         }
         temp=temp->next;
@@ -82,7 +82,7 @@ person* addPersonToQueue(person *head,int priority)
     printf("Started addPersonToQueue\n\n");
 
     person *temp=head;
-    person *tempPerson=(person *)malloc(sizeof(person)),*tempPrev;
+    person *tempPerson=(person *)malloc(sizeof(person)),*tempNext;
     srand(time(NULL)+rand());
     tempPerson->time=(rand()%100)/10;
     tempPerson->priority=priority;
@@ -94,15 +94,15 @@ person* addPersonToQueue(person *head,int priority)
     }
     while(temp!=NULL)
     {
-        if(temp->priority<priority)
+        if(temp->next->priority<priority)
         {
-            tempPrev=temp;
             temp=temp->next;
         }
         else
         {
-            tempPrev->next=tempPerson;
-            tempPerson->next=temp;
+            tempNext=temp->next;
+            temp->next=tempPerson;
+            tempPerson->next=tempNext;
             return head;
         }
     }
