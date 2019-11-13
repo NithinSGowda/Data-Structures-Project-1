@@ -112,10 +112,10 @@ void displayQueues(terminal *head)
     int totalTime=0;
     while(temp->next!=NULL)
     {
-        tempPerson=head->q;
+        tempPerson=temp->q;
         while(tempPerson->next!=NULL)
         {
-            printf("%d  ",tempPerson->time);
+            printf("%d  ",tempPerson->time); 
             totalTime+=tempPerson->time;
         }
         printf("Terminal number : %d\n",temp->terminalNumber);
