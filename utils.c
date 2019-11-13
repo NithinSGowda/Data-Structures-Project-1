@@ -60,10 +60,11 @@ terminal* initialise(terminal *head)
     int i=0;
     while(temp!=NULL)
     {
+        i=0;
         srand(time(NULL)+rand());
-        while(i<rand()%30)
+        while(i<rand()%head->maxCapacity)
         {
-            printf("%d",rand()%30);
+            printf("%d",rand()%head->maxCapacity);
             temp->q.person=addPersonToQueue(temp->q.person,(rand()%5));
             temp->q.queueSize++;
             i++;
@@ -88,7 +89,7 @@ person* addPersonToQueue(person *head,int priority)
     if(head==NULL)
     {
         tempPerson->next=NULL;
-        printf("Ended addPersonToQueue\n\n");
+        printf("Ended addPersonToQueue 1\n\n");
         return tempPerson;
     }
     while(temp!=NULL)
