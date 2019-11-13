@@ -10,6 +10,7 @@ typedef struct TERMINAL{
     unsigned int functional;
     int terminalNumber;
     person *q;
+    int waitingTime;
     struct TERMINAL *next;
 }terminal;
 
@@ -21,3 +22,4 @@ person* addPersonToQueue(person *,int);
 terminal* initialisePrompt(terminal*);
 terminal* initialise(terminal*);
 void displayQueues(terminal*);
+void actualSimulation(terminal*);
