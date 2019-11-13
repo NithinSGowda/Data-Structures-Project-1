@@ -19,7 +19,6 @@ terminal* createTerminals(int numOfTerminals,int sizeOfTerminal)
         temp->curStatus=0;
         temp->functional=0;
         temp->terminalNumber=i;
-        temp->q.queueSize=0;
         temp=temp2;
         i++;
     }
@@ -57,15 +56,16 @@ terminal* initialise(terminal *head)
     printf("Started initialise\n\n");
 
     terminal *temp=head;
-    int i=0;
-    while(temp!=NULL)
+    int i,randomNumber;
+    while(temp->next!=NULL)
     {
         i=0;
         srand(time(NULL)+rand());
-        while(i<rand()%head->maxCapacity)
+        randomNumber=rand()%head->maxCapacity;
+        printf("\n\n%d\n\n",randomNumber);
+        while(i<randomNumber)
         {
-            printf("%d",rand()%head->maxCapacity);
-            temp->q.person=addPersonToQueue(temp->q.person,(rand()%5));
+            temp->q=addPersonToQueue(temp->q,(rand()%5));
             temp->curStatus++;
             i++;
         }
@@ -92,7 +92,7 @@ person* addPersonToQueue(person *head,int priority)
         printf("Ended addPersonToQueue 1\n\n");
         return tempPerson;
     }
-    while(temp!=NULL)
+    while(temp->next!=NULL)
     {
         if(temp->next->priority<priority)
         {
@@ -106,7 +106,7 @@ person* addPersonToQueue(person *head,int priority)
             return head;
         }
     }
-
+    
     printf("Ended addPersonToQueue\n\n");
 
     return head;

@@ -1,23 +1,19 @@
-typedef struct QUEUE{
-    int *person;
-    int queueSize;
-    int waitingTime;
-}queue;
+typedef struct people{
+    int time;
+    int priority;
+    struct people *next;
+}person;
 
 typedef struct TERMINAL{
     int maxCapacity;
     int curStatus;
     unsigned int functional;
     int terminalNumber;
-    queue q;
+    person *q;
     struct TERMINAL *next;
 }terminal;
 
-typedef struct people{
-    int time;
-    int priority;
-    struct people *next;
-}person;
+
 
 terminal* createTerminals(int,int);
 terminal* beginner();
