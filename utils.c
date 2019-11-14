@@ -124,6 +124,7 @@ void displayQueues(terminal *head)
     while(temp->next!=NULL)
     {
         tempPerson=temp->q;
+        totalTime=0;
         while(tempPerson->next!=NULL)
         {
             totalTime+=tempPerson->time;
