@@ -9,20 +9,20 @@ terminal* createTerminals(int numOfTerminals,int sizeOfTerminal)
     terminal *head=(terminal *)malloc(sizeof(terminal));
     terminal *temp=head;
     int i=1;
-    while(i<=numOfTerminals)
+    while(i<=numOfTerminals)        //creates user defined number of terminals
     {
         terminal *temp2=(terminal *)malloc(sizeof(terminal));
         temp->next=temp2;
-        temp->maxCapacity=sizeOfTerminal;
+        temp->maxCapacity=sizeOfTerminal;           //initialisation of terminal metadata to default values
         temp->curStatus=0;
         temp->functional=0;
         temp->terminalNumber=i;
         temp->waitingTime=0;
-        temp=temp2;
+        temp=temp2;         //moves to the next terminal
         i++;
     }
-    temp->next=NULL;
-    return head;
+    temp->next=NULL;            //last terminal's next will be NULL
+    return head;                //returns the newly created terminal list's head pointer
 }
 
 
@@ -31,7 +31,7 @@ terminal* beginner()
     printf("Welcome to Airport Check-in terminal simulator\n\n");
     printf("Press any to start\n");
     getchar();
-    system("@cls||clear");
+    system("@cls||clear");          //clears the terminal screen
 
     char tempString[30];
     int numOfTerminals,sizeOfTerminal;
@@ -41,92 +41,57 @@ terminal* beginner()
     printf("Enter max size for a queue at terminal : ");
     scanf("%s",tempString);
     sizeOfTerminal=atoi(tempString);
-    return createTerminals(numOfTerminals,sizeOfTerminal);
+    return createTerminals(numOfTerminals,sizeOfTerminal);          //This is returned to the main function
 }
 
 terminal* initialise(terminal *head)
 {
     terminal *temp=head;
     int i;
-    while(temp->next!=NULL)
+    while(temp->next!=NULL)         //lops over all the terminals
     {
         i=0;
-        srand(time(NULL)+rand());
-        while(i<rand()%head->maxCapacity)
+        srand(time(NULL)+rand());           //to set a random seed value for rand() function
+        while(i<rand()%head->maxCapacity)           //loops random number of times to add random number of people to the queue
         {
-            temp->q=addPersonToQueue(temp->q,(rand()%5));
-            temp->curStatus++;
-            temp->waitingTime+=(rand()%100)/10;
+            temp->q=addPersonToQueue(temp->q,(rand()%5));           //adds a person with a given random probablity 
+            temp->curStatus++;          //increments terminal's metadata
             i++;
         }
-        temp=temp->next;
+        temp=temp->next;        //moves on to next terminal
     }
     printf("\nInitialisation successful\n");
     return head;
 
 }
 
-/*person* addPersonToQueue(person *head,int priority)
-{
-    person *temp=head;
-    person *tempPerson=malloc(sizeof(person)),*tempNext;
-    srand(time(NULL)+rand());
-    tempPerson->time=(rand()%100)/10;
-    tempPerson->priority=priority;
-    if(head==NULL)
-    {
-        tempPerson->next=NULL;
-        return tempPerson;
-    }
-    while(temp->next!=NULL)
-    {
-        if(temp->next->priority>=priority)
-        {
-            
-            tempNext=temp->next;
-            temp->next=tempPerson;
-            tempPerson->next=tempNext;
-            return head;
-        }
-        temp=temp->next;
-    }
-
-    return head;
-}*/
-
 person* addPersonToQueue(person *head,int priority)
 {
-    //printf("Started addPersonToQueue\n\n");
-
     person *temp=head;
     person *tempPerson=(person *)malloc(sizeof(person)),*tempNext;
     srand(time(NULL)+rand());
-    tempPerson->time=(rand()%100)/10;
-    tempPerson->priority=priority;
-    if(head==NULL)
+    tempPerson->time=(rand()%100)/10;           //random time is assigned to each individual
+    tempPerson->priority=priority;              
+    if(head==NULL)              //If the person is the first person
     {
-        tempPerson->next=NULL;
-        //  printf("Ended addPersonToQueue 1\n\n");
+        tempPerson->next=NULL;          //Next person will be set to NULL and this person would be returned back
         return tempPerson;
     }
-    while(temp->next!=NULL)
+    while(temp->next!=NULL)         //Loops all over the queue to find the right position to insert
     {
-        if(temp->next->priority<priority)
+        if(temp->next->priority<priority)       //If the next person's priority is lesser than the new person, the new person must chek the next person and loop repeats
         {
             temp=temp->next;
         }
         else
         {
             tempNext=temp->next;
-            temp->next=tempPerson;
+            temp->next=tempPerson;              //Newperson is inserted in between if his priority is less than next one
             tempPerson->next=tempNext;
             return head;
         }
     }
-    
-    //printf("Ended addPersonToQueue\n\n");
-
-    return head;
+    return head;            //The new head of the queue is returned
 }
 
 terminal* initialisePrompt(terminal *head)
@@ -150,18 +115,17 @@ void displayQueues(terminal *head)
         tempPerson=temp->q;
         while(tempPerson->next!=NULL)
         {
-            printf("%d  ",tempPerson->time);
             totalTime+=tempPerson->time;
             tempPerson=tempPerson->next;
         }
         printf("Terminal number : %d\n",temp->terminalNumber);
         printf("Total number of people in the queue are %d\n",temp->curStatus);
-        printf("Estimated waiting time is %d\n\n",temp->waitingTime);
+        printf("Estimated waiting time is %d\n\n",totalTime);
         temp=temp->next;
     }
 }
 
-
+/*
 void actualSimulation(terminal *head)
 {
     char inputString;
@@ -212,3 +176,5 @@ void actualSimulation(terminal *head)
         displayQueues(head);
     }
 }
+
+*/
