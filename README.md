@@ -2,4 +2,4 @@
 A C program to simulate check-in terminals at international airports
 
 Please create a fork and commit your changes.
-Create a pull reques, it will be considered if found good.
+Create a pull requests, it will be considered if found good.
