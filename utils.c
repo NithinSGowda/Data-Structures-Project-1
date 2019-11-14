@@ -131,7 +131,7 @@ void displayQueues(terminal *head)
         }
         printf("Terminal number : %d\n",temp->terminalNumber);
         printf("Total number of people in the queue are %d\n",temp->curStatus);
-        printf("Estimated waiting time is %d\n\n",totalTime);
+        printf("Estimated waiting time is %d minutes\n\n",totalTime);
         temp=temp->next;
     }
 }
