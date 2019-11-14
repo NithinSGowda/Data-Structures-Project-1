@@ -52,7 +52,7 @@ terminal* initialise(terminal *head)
     {
         i=0;
         srand(time(NULL)+rand());           //to set a random seed value for rand() function
-        while(i<rand()%head->maxCapacity)           //loops random number of times to add random number of people to the queue
+        while(i<(rand()%head->maxCapacity)+1)           //loops random number of times to add random number of people to the queue
         {
             addPersonToQueue(&temp->q,((rand()%100)/10)+1,((rand()%5)+1));           //adds a person with a given random probablity 
             temp->curStatus++;          //increments terminal's metadata
