@@ -9,8 +9,9 @@ int main()
     head=beginner();
     head=initialisePrompt(head);
     displayQueues(head);
-    while(1){
+    /*while(1){
         actualSimulation(head);
     }
+    */
     return 0;
 }

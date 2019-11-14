@@ -48,13 +48,13 @@ terminal* initialise(terminal *head)
 {
     terminal *temp=head;
     int i;
-    while(temp->next!=NULL)         //lops over all the terminals
+    while(temp!=NULL)         //lops over all the terminals
     {
         i=0;
         srand(time(NULL)+rand());           //to set a random seed value for rand() function
         while(i<rand()%head->maxCapacity)           //loops random number of times to add random number of people to the queue
         {
-            temp->q=addPersonToQueue(temp->q,(rand()%5));           //adds a person with a given random probablity 
+            addPersonToQueue(&temp->q,((rand()%100)/10)+1,((rand()%5)+1));           //adds a person with a given random probablity 
             temp->curStatus++;          //increments terminal's metadata
             i++;
         }
@@ -65,7 +65,7 @@ terminal* initialise(terminal *head)
 
 }
 
-person* addPersonToQueue(person *head,int priority)
+/*person* addPersonToQueue(person *head,int priority)
 {
     person *temp=head;
     person *tempPerson=(person *)malloc(sizeof(person)),*tempNext;
@@ -93,6 +93,17 @@ person* addPersonToQueue(person *head,int priority)
     }
     return head;            //The new head of the queue is returned
 }
+*/
+
+
+/*person* addPersonToQueue(person *head,int priority)
+{
+    srand(time(NULL)+rand());
+    push(&head,(rand()%100)/10,priority) ;
+    return head;
+}
+*/
+
 
 terminal* initialisePrompt(terminal *head)
 {
@@ -125,7 +136,7 @@ void displayQueues(terminal *head)
     }
 }
 
-/*
+
 void actualSimulation(terminal *head)
 {
     char inputString;
@@ -134,6 +145,7 @@ void actualSimulation(terminal *head)
     terminal *tempTerminal=head;
     printf("\n1] Add a person\n2] fast forward time\n\n Enter your choice [1/2] : ");
     scanf("  %d",&choice);
+    /*
     if(choice==1){
         printf("Enter the person detail [ VIP(V) / pregnant_women(P) / old(O) / handicapped(H) / normal(N)]");
         scanf(" %c",inputString);
@@ -175,6 +187,5 @@ void actualSimulation(terminal *head)
         }
         displayQueues(head);
     }
+    */  
 }
-
-*/

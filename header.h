@@ -18,8 +18,15 @@ typedef struct TERMINAL{
 
 terminal* createTerminals(int,int);
 terminal* beginner();
-person* addPersonToQueue(person *,int);
+//void addPersonToQueue(person *,int);
 terminal* initialisePrompt(terminal*);
 terminal* initialise(terminal*);
 void displayQueues(terminal*);
 void actualSimulation(terminal*);
+
+//Queue Functions
+person* newPerson(int, int);
+int peek(person**);
+int pop(person**);
+void addPersonToQueue(person**, int, int); 
+int isEmpty(person**); 
