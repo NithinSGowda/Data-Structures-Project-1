@@ -177,21 +177,25 @@ void actualSimulation(terminal *head)
         allocatedTerminal->curStatus++;
         //printf("%d\n",tempPerson->priority);
         printf("\nPerson added to terminal number %d.\nPlease ask the person to go to terminal terminal %d\nHis/her waiting time is %d minutes.\n\n\n",allocatedTerminal->terminalNumber,allocatedTerminal->terminalNumber,findWaitingTime(allocatedTerminal,tempPerson));
-        printf("\nAdded person with time %d and priority %d\n\n",tempPerson->time,tempPerson->priority);
         updateWaitingTime(head);
         displayQueues(head);
     }
     else{
-        int time,removedTime=0;
+        int time,removedTime=0,removedPeople=0;
         printf("Enter the amount of time to fast forward [in mins] : ");
         scanf(" %d",&time);
         while(tempTerminal->next!=NULL)
         {
             removedTime=0;
+            removedPeople=0;
             while(removedTime<time)
             {
                 removedTime+= pop(&tempTerminal->q);
+                removedPeople--;
             }
+            tempTerminal->curStatus-=removedPeople;
+            tempTerminal->waitingTime-=removedTime;
+            tempTerminal=tempTerminal->next;
         }
         displayQueues(head);
     }
