@@ -165,10 +165,10 @@ void actualSimulation(terminal *head)
                 tempPerson = addPersonToQueue(&allocatedTerminal->q,((rand()%100)/10)+1,2);
                 break;
             case 'O' :
-                tempPerson = addPersonToQueue(&allocatedTerminal->q,((rand()%100)/10)+1,4);
+                tempPerson = addPersonToQueue(&allocatedTerminal->q,((rand()%100)/10)+1,3);
                 break;
             case 'H' :
-                tempPerson = addPersonToQueue(&allocatedTerminal->q,((rand()%100)/10)+1,3);
+                tempPerson = addPersonToQueue(&allocatedTerminal->q,((rand()%100)/10)+1,4);
                 break;
             default :
                 tempPerson = addPersonToQueue(&allocatedTerminal->q,((rand()%100)/10)+1,5);
