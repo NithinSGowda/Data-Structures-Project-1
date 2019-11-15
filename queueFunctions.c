@@ -60,8 +60,7 @@ person* addPersonToQueue(person** head, int time, int priority)
         start->next = temp; 
     }
     }
-    //printf("\nAdded person with time %d and priority %d\n\n",temp->time,temp->priority);
-    return *head;
+    return temp;
 } 
   
 // Function to check is list is empty 

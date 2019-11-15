@@ -70,7 +70,7 @@ terminal* initialise(terminal *head)
         srand(time(NULL)+rand());           //to set a random seed value for rand() function
         while(i<(rand()%head->maxCapacity)+1)           //loops random number of times to add random number of people to the queue
         {
-            addPersonToQueue(&temp->q,((rand()%100)/10)+1,((rand()%5)+1));           //adds a person with a given random probablity 
+            addPersonToQueue(&temp->q,((rand()%100)/10)+1,5);           //adds a person with a given random probablity 
             temp->curStatus++;          //increments terminal's metadata
             i++;
         }
@@ -113,7 +113,7 @@ terminal* searchFastestTerminal(terminal *head)
     terminal *temp=head;
     terminal *minTerminal=head;
     int minWaitingTime=head->waitingTime;
-    while(temp!=NULL)
+    while(temp->next!=NULL)
     {
         if(temp->waitingTime < minWaitingTime)
         {
@@ -159,34 +159,39 @@ void actualSimulation(terminal *head)
         switch (inputString)
             {
             case 'V' :
-                tempPerson = addPersonToQueue(&allocatedTerminal->q,((rand()%100)/10)+1,1);
+                tempPerson = addPersonToQueue(&allocatedTerminal->q,((rand()%100)/10)+1,0);
                 break;
             case 'P' :
-                tempPerson = addPersonToQueue(&allocatedTerminal->q,((rand()%100)/10)+1,2);
+                tempPerson = addPersonToQueue(&allocatedTerminal->q,((rand()%100)/10)+1,1);
                 break;
             case 'O' :
-                tempPerson = addPersonToQueue(&allocatedTerminal->q,((rand()%100)/10)+1,3);
+                tempPerson = addPersonToQueue(&allocatedTerminal->q,((rand()%100)/10)+1,2);
                 break;
             case 'H' :
-                tempPerson = addPersonToQueue(&allocatedTerminal->q,((rand()%100)/10)+1,4);
+                tempPerson = addPersonToQueue(&allocatedTerminal->q,((rand()%100)/10)+1,3);
                 break;
             default :
-                tempPerson = addPersonToQueue(&allocatedTerminal->q,((rand()%100)/10)+1,5);
+                tempPerson = addPersonToQueue(&allocatedTerminal->q,((rand()%100)/10)+1,4);
                 break;
             }
         allocatedTerminal->curStatus++;
         //printf("%d\n",tempPerson->priority);
         printf("\nPerson added to terminal number %d.\nPlease ask the person to go to terminal terminal %d\nHis/her waiting time is %d minutes.\n\n\n",allocatedTerminal->terminalNumber,allocatedTerminal->terminalNumber,findWaitingTime(allocatedTerminal,tempPerson));
+        printf("\nAdded person with time %d and priority %d\n\n",tempPerson->time,tempPerson->priority);
         updateWaitingTime(head);
         displayQueues(head);
     }
     else{
-        int time;
+        int time,removedTime=0;
         printf("Enter the amount of time to fast forward [in mins] : ");
         scanf(" %d",&time);
         while(tempTerminal->next!=NULL)
         {
-            
+            removedTime=0;
+            while(removedTime<time)
+            {
+                removedTime+= pop(&tempTerminal->q);
+            }
         }
         displayQueues(head);
     }
