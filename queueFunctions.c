@@ -30,7 +30,6 @@ int pop(person** head)
 void addPersonToQueue(person** head, int time, int priority) 
 { 
     person* start = (*head); 
-  
     // Create new person 
     person* temp = newPerson(time, priority); 
     

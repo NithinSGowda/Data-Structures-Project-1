@@ -25,6 +25,22 @@ terminal* createTerminals(int numOfTerminals,int sizeOfTerminal)
     return head;                //returns the newly created terminal list's head pointer
 }
 
+void updateWaitingTime(terminal *head)
+{
+    terminal *temp=head;
+    person *tempQ;
+    while(temp!=NULL)
+    {
+        tempQ=temp->q;
+        temp->waitingTime=0;
+        while(tempQ!=NULL)
+        {
+            temp->waitingTime+=tempQ->time;
+            tempQ=tempQ->next;
+        }
+        temp=temp->next;
+    }
+}
 
 terminal* beginner()
 {
@@ -60,49 +76,12 @@ terminal* initialise(terminal *head)
         }
         temp=temp->next;        //moves on to next terminal
     }
+    updateWaitingTime(head);
     printf("\nInitialisation successful\n");
     return head;
 
 }
 
-/*person* addPersonToQueue(person *head,int priority)
-{
-    person *temp=head;
-    person *tempPerson=(person *)malloc(sizeof(person)),*tempNext;
-    srand(time(NULL)+rand());
-    tempPerson->time=(rand()%100)/10;           //random time is assigned to each individual
-    tempPerson->priority=priority;              
-    if(head==NULL)              //If the person is the first person
-    {
-        tempPerson->next=NULL;          //Next person will be set to NULL and this person would be returned back
-        return tempPerson;
-    }
-    while(temp->next!=NULL)         //Loops all over the queue to find the right position to insert
-    {
-        if(temp->next->priority<priority)       //If the next person's priority is lesser than the new person, the new person must chek the next person and loop repeats
-        {
-            temp=temp->next;
-        }
-        else
-        {
-            tempNext=temp->next;
-            temp->next=tempPerson;              //Newperson is inserted in between if his priority is less than next one
-            tempPerson->next=tempNext;
-            return head;
-        }
-    }
-    return head;            //The new head of the queue is returned
-}
-*/
-
-
-/*person* addPersonToQueue(person *head,int priority)
-{
-    srand(time(NULL)+rand());
-    push(&head,(rand()%100)/10,priority) ;
-    return head;
-}
-*/
 
 
 terminal* initialisePrompt(terminal *head)
@@ -119,24 +98,32 @@ terminal* initialisePrompt(terminal *head)
 void displayQueues(terminal *head)
 {
     terminal *temp=head;
-    person *tempPerson;
     int totalTime=0;
     while(temp->next!=NULL)
     {
-        tempPerson=temp->q;
-        totalTime=0;
-        while(tempPerson->next!=NULL)
-        {
-            totalTime+=tempPerson->time;
-            tempPerson=tempPerson->next;
-        }
         printf("Terminal number : %d\n",temp->terminalNumber);
         printf("Total number of people in the queue are %d\n",temp->curStatus);
-        printf("Estimated waiting time is %d minutes\n\n",totalTime);
+        printf("Estimated waiting time is %d minutes\n\n",temp->waitingTime);        
         temp=temp->next;
     }
 }
 
+terminal* searchFastestTerminal(terminal *head)
+{
+    terminal *temp=head;
+    terminal *minTerminal=head;
+    int minWaitingTime=head->waitingTime;
+    while(temp!=NULL)
+    {
+        if(temp->waitingTime < minWaitingTime)
+        {
+            minWaitingTime=temp->waitingTime;
+            minTerminal=temp;
+        }
+        temp=temp->next;
+    }
+    return minTerminal;
+}
 
 void actualSimulation(terminal *head)
 {
@@ -144,9 +131,9 @@ void actualSimulation(terminal *head)
     int choice;
     person *tempPerson;
     terminal *tempTerminal=head;
+    terminal *allocatedTerminal=searchFastestTerminal(head);
     printf("\n1] Add a person\n2] fast forward time\n\n Enter your choice [1/2] : ");
     scanf("  %d",&choice);
-    /*
     if(choice==1){
         printf("Enter the person detail [ VIP(V) / pregnant_women(P) / old(O) / handicapped(H) / normal(N)]");
         scanf(" %c",inputString);
@@ -154,21 +141,30 @@ void actualSimulation(terminal *head)
         switch (inputString)
             {
             case 'V' :
-                tempPerson=addPersonToQueue(tempTerminal->q,1);
+                printf("Added V\n");
+                addPersonToQueue(&allocatedTerminal->q,((rand()%100)/10)+1,1);
                 break;
             case 'P' :
-                tempPerson=addPersonToQueue(tempTerminal->q,2);
+                addPersonToQueue(&allocatedTerminal->q,((rand()%100)/10)+1,2);
+                printf("Added P\n");
                 break;
             case 'O' :
-                tempPerson=addPersonToQueue(tempTerminal->q,4);
+                addPersonToQueue(&allocatedTerminal->q,((rand()%100)/10)+1,4);
+                printf("Added O\n");
                 break;
             case 'H' :
-                tempPerson=addPersonToQueue(tempTerminal->q,3);
+                addPersonToQueue(&allocatedTerminal->q,((rand()%100)/10)+1,3);
+                printf("Added H\n");
                 break;
             default :
-                tempPerson=addPersonToQueue(tempTerminal->q,5);
+                addPersonToQueue(&allocatedTerminal->q,((rand()%100)/10)+1,5);
+                printf("Added N\n");
                 break;
             }
+        allocatedTerminal->curStatus++;
+        printf("\nPerson added to terminal number %d.\nPlease ask the person to go to terminal terminal %d\nHis/her waiting time is %d minutes.\n\n\n",allocatedTerminal->terminalNumber,allocatedTerminal->terminalNumber,allocatedTerminal->waitingTime);
+        updateWaitingTime(head);
+        displayQueues(head);
     }
     else{
         int time;
@@ -176,17 +172,9 @@ void actualSimulation(terminal *head)
         scanf(" %d",&time);
         while(tempTerminal->next!=NULL)
         {
-            tempTerminal->waitingTime-=time;
-            if(tempTerminal->waitingTime < 0){
-                tempTerminal->waitingTime=0;
-                tempTerminal->curStatus=0;
-            }
-            tempTerminal->curStatus-=((rand()%time)*2);
-            if(tempTerminal->curStatus < 0)
-                tempTerminal->curStatus=0;
-            tempTerminal=tempTerminal->next;
+            
         }
         displayQueues(head);
     }
-    */  
+    
 }

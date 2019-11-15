@@ -8,7 +8,8 @@ int main()
     terminal *head;
     head=beginner();
     head=initialisePrompt(head);
-    displayQueues(head);
+    displayQueues(head);    
+    actualSimulation(head);
     /*while(1){
         actualSimulation(head);
     }

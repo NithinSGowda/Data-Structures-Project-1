@@ -17,11 +17,12 @@ typedef struct TERMINAL{
 
 
 terminal* createTerminals(int,int);
+void updatewaitingTime(terminal*);
 terminal* beginner();
-//void addPersonToQueue(person *,int);
 terminal* initialisePrompt(terminal*);
 terminal* initialise(terminal*);
 void displayQueues(terminal*);
+terminal* searchFastestTerminal(terminal*);
 void actualSimulation(terminal*);
 
 //Queue Functions
