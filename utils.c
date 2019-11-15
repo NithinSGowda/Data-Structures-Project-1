@@ -125,18 +125,18 @@ terminal* searchFastestTerminal(terminal *head)
     return minTerminal;
 }
 
-int findWaitingTime(terminal *head, person *person)
+int findWaitingTime(terminal *root, person *person)
 {
-    person *temp=head->q;
     int waitingTime=0;
-    while(temp!=NULL)
+    terminal *head=root;
+    while(head->q!=NULL)
     {
-        if(temp==person)
-            return waitingTime;
+        if(head->q==person)
+            return waitingTime+head->q->next->time;
         else
         {
-            waitingTime+=temp->waitingTime;
-            temp=temp->next;
+            waitingTime+=head->q->time;
+            head->q=head->q->next;
         }
     }
 }
@@ -152,33 +152,31 @@ void actualSimulation(terminal *head)
     printf("\n1] Add a person\n2] fast forward time\n\n Enter your choice [1/2] : ");
     scanf("  %d",&choice);
     if(choice==1){
-        printf("Enter the person detail [ VIP(V) / pregnant_women(P) / old(O) / handicapped(H) / normal(N)]");
+        printf("Enter the person detail [ VIP(V) / pregnant_women(P) / old(O) / handicapped(H) / normal(N)] : ");
         inputString=getchar();
         inputString = getchar();
 
         switch (inputString)
             {
             case 'V' :
-                addPersonToQueue(&allocatedTerminal->q,((rand()%100)/10)+1,1);
+                tempPerson = addPersonToQueue(&allocatedTerminal->q,((rand()%100)/10)+1,1);
                 break;
             case 'P' :
-                addPersonToQueue(&allocatedTerminal->q,((rand()%100)/10)+1,2);
+                tempPerson = addPersonToQueue(&allocatedTerminal->q,((rand()%100)/10)+1,2);
                 break;
             case 'O' :
-                addPersonToQueue(&allocatedTerminal->q,((rand()%100)/10)+1,4);
+                tempPerson = addPersonToQueue(&allocatedTerminal->q,((rand()%100)/10)+1,4);
                 break;
             case 'H' :
-                addPersonToQueue(&allocatedTerminal->q,((rand()%100)/10)+1,3);
+                tempPerson = addPersonToQueue(&allocatedTerminal->q,((rand()%100)/10)+1,3);
                 break;
             default :
-                addPersonToQueue(&allocatedTerminal->q,((rand()%100)/10)+1,5);
+                tempPerson = addPersonToQueue(&allocatedTerminal->q,((rand()%100)/10)+1,5);
                 break;
             }
         allocatedTerminal->curStatus++;
-        printf("\nPerson added to terminal number %d.\n
-        Please ask the person to go to terminal terminal %d\n
-        His/her waiting time is %d minutes.\n\n\n",
-        allocatedTerminal->terminalNumber,allocatedTerminal->terminalNumber,findWaitingTime(allocatedTerminal,));
+        //printf("%d\n",tempPerson->priority);
+        printf("\nPerson added to terminal number %d.\nPlease ask the person to go to terminal terminal %d\nHis/her waiting time is %d minutes.\n\n\n",allocatedTerminal->terminalNumber,allocatedTerminal->terminalNumber,findWaitingTime(allocatedTerminal,tempPerson));
         updateWaitingTime(head);
         displayQueues(head);
     }

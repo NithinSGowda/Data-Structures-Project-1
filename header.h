@@ -30,5 +30,5 @@ void actualSimulation(terminal*);
 person* newPerson(int, int);
 int peek(person**);
 int pop(person**);
-void addPersonToQueue(person**, int, int); 
+person* addPersonToQueue(person**, int, int); 
 int isEmpty(person**); 

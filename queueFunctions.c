@@ -27,7 +27,7 @@ int pop(person** head)
 } 
   
 // Function to push according to priority 
-void addPersonToQueue(person** head, int time, int priority) 
+person* addPersonToQueue(person** head, int time, int priority) 
 { 
     person* start = (*head); 
     // Create new person 
@@ -60,6 +60,7 @@ void addPersonToQueue(person** head, int time, int priority)
         start->next = temp; 
     }
     }
+    return *head;
 } 
   
 // Function to check is list is empty 
