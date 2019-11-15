@@ -125,6 +125,23 @@ terminal* searchFastestTerminal(terminal *head)
     return minTerminal;
 }
 
+int findWaitingTime(terminal *head, person *person)
+{
+    person *temp=head->q;
+    int waitingTime=0;
+    while(temp!=NULL)
+    {
+        if(temp==person)
+            return waitingTime;
+        else
+        {
+            waitingTime+=temp->waitingTime;
+            temp=temp->next;
+        }
+    }
+}
+
+
 void actualSimulation(terminal *head)
 {
     char inputString;
@@ -136,33 +153,32 @@ void actualSimulation(terminal *head)
     scanf("  %d",&choice);
     if(choice==1){
         printf("Enter the person detail [ VIP(V) / pregnant_women(P) / old(O) / handicapped(H) / normal(N)]");
-        scanf(" %c",inputString);
+        inputString=getchar();
+        inputString = getchar();
 
         switch (inputString)
             {
             case 'V' :
-                printf("Added V\n");
                 addPersonToQueue(&allocatedTerminal->q,((rand()%100)/10)+1,1);
                 break;
             case 'P' :
                 addPersonToQueue(&allocatedTerminal->q,((rand()%100)/10)+1,2);
-                printf("Added P\n");
                 break;
             case 'O' :
                 addPersonToQueue(&allocatedTerminal->q,((rand()%100)/10)+1,4);
-                printf("Added O\n");
                 break;
             case 'H' :
                 addPersonToQueue(&allocatedTerminal->q,((rand()%100)/10)+1,3);
-                printf("Added H\n");
                 break;
             default :
                 addPersonToQueue(&allocatedTerminal->q,((rand()%100)/10)+1,5);
-                printf("Added N\n");
                 break;
             }
         allocatedTerminal->curStatus++;
-        printf("\nPerson added to terminal number %d.\nPlease ask the person to go to terminal terminal %d\nHis/her waiting time is %d minutes.\n\n\n",allocatedTerminal->terminalNumber,allocatedTerminal->terminalNumber,allocatedTerminal->waitingTime);
+        printf("\nPerson added to terminal number %d.\n
+        Please ask the person to go to terminal terminal %d\n
+        His/her waiting time is %d minutes.\n\n\n",
+        allocatedTerminal->terminalNumber,allocatedTerminal->terminalNumber,findWaitingTime(allocatedTerminal,));
         updateWaitingTime(head);
         displayQueues(head);
     }

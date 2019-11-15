@@ -60,7 +60,6 @@ void addPersonToQueue(person** head, int time, int priority)
         start->next = temp; 
     }
     }
-     
 } 
   
 // Function to check is list is empty 
