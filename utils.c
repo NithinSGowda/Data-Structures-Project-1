@@ -193,8 +193,9 @@ void actualSimulation(terminal *head)
                 removedTime+= pop(&tempTerminal->q);
                 removedPeople++;
             }
+            tempTerminal->q->time=time-removedTime;
             tempTerminal->curStatus-=removedPeople;
-            tempTerminal->waitingTime-=removedTime;
+            tempTerminal->waitingTime-=time;
             tempTerminal=tempTerminal->next;
         }
         displayQueues(head);
