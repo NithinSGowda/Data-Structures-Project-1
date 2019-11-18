@@ -184,14 +184,14 @@ void actualSimulation(terminal *head)
         int time,removedTime=0,removedPeople=0;
         printf("Enter the amount of time to fast forward [in mins] : ");
         scanf(" %d",&time);
-        while(tempTerminal->next!=NULL)
+        while(tempTerminal!=NULL && tempTerminal->waitingTime!=0)
         {
             removedTime=0;
             removedPeople=0;
             while(removedTime<time)
             {
                 removedTime+= pop(&tempTerminal->q);
-                removedPeople--;
+                removedPeople++;
             }
             tempTerminal->curStatus-=removedPeople;
             tempTerminal->waitingTime-=removedTime;
