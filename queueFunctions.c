@@ -9,15 +9,18 @@ person* newPerson(int time, int priority)
         printf("malloc() Error\n");
         exit(10);
     }
-    temp->time = abs(time); 
+    temp->time = time; 
     temp->priority = priority; 
     temp->next = NULL; 
     return temp; 
-}
+} 
+  
+// Return the value at head 
 int peek(person** head) 
 { 
     return (*head)->time; 
 } 
+  
 // Removes the element with the 
 // highest priority form the list 
 int pop(person** head) 
@@ -33,7 +36,6 @@ person* addPersonToQueue(person** head, int time, int priority)
     person* start = (*head); 
     // Create new person 
     person* temp = newPerson(time, priority); 
-    
     if(*head==NULL)
         (*head) = temp;
     else{
@@ -42,13 +44,15 @@ person* addPersonToQueue(person** head, int time, int priority)
     // person before head person and change head person. 
     if ((*head)->priority > priority) { 
   
-        // Insert New person after head 
-        start=(*head)->next;
-        (*head)->next=temp;
-        temp->next = start; 
+        // Insert New person before head 
+        temp->next = *head; 
+        (*head) = temp; 
     } 
-    else { 
-  
+    else {
+        if(start->next==NULL){
+            start->next=temp;
+        }
+        else{
         // Traverse the list and find a 
         // position to insert new person 
         while (start->next != NULL && 
@@ -60,11 +64,14 @@ person* addPersonToQueue(person** head, int time, int priority)
         // or at required position 
         temp->next = start->next; 
         start->next = temp; 
+        }
     }
     }
     return temp;
 } 
+// Function to check is list is empty 
 int isEmpty(person** head) 
 { 
     return (*head) == NULL; 
 }
+
