@@ -241,11 +241,12 @@ void actualSimulation(terminal *head)
             {
             removedTime=0;
             removedPeople=0;
-            while((isEmpty(&tempTerminal->q)!=1) && (removedTime+peek(&tempTerminal->q))<time)
+            while(!isEmpty(&tempTerminal->q) && (removedTime+peek(&tempTerminal->q))<time)
             {
                 removedTime+=pop(&tempTerminal->q);
-                removedPeople++;
             }
+            if(removedTime<time && !isEmpty(&tempTerminal->q))
+            tempTerminal->q->time-=time-removedTime;
             /*tempTerminal->q->time=time-removedTime;
             tempTerminal->curStatus-=removedPeople;
             tempTerminal->waitingTime-=time;*/
