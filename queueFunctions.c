@@ -27,7 +27,9 @@ int pop(person** head)
 { 
     person* temp = *head; 
     (*head) = (*head)->next;
-    return temp->time;
+    int time=temp->time;
+    free(temp);
+    return time;
 } 
   
 // Function to push according to priority 

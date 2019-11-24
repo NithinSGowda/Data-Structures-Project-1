@@ -231,7 +231,7 @@ void actualSimulation(terminal *head)
         displayQueues(head);
     }
     else if(choice==2){
-        int time,removedTime=0,removedPeople=0;
+        int time,removedTime=0;
         printf("Enter the amount of time to fast forward [in mins] : ");
         scanf(" %d",&time);
         tempTerminal=head;
@@ -240,7 +240,6 @@ void actualSimulation(terminal *head)
             if(tempTerminal->waitingTime!=0)
             {
             removedTime=0;
-            removedPeople=0;
             while(!isEmpty(&tempTerminal->q) && (removedTime+peek(&tempTerminal->q))<time)
             {
                 removedTime+=pop(&tempTerminal->q);
@@ -255,7 +254,9 @@ void actualSimulation(terminal *head)
         }
         displayQueues(head);
     }
-    else
+    else{
         exit(0);
+    }
+        
     
 }
