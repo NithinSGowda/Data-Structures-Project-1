@@ -36,21 +36,26 @@ person* addPersonToQueue(person** head, int time, int priority)
     person* start = (*head); 
     // Create new person 
     person* temp = newPerson(time, priority); 
-    if(*head==NULL)
+    if(*head==NULL){
         (*head) = temp;
+        printf("Added first\n");
+    }
     else{
         // Special Case: The head of list has lesser 
     // priority than new person. So insert new 
     // person before head person and change head person. 
     if ((*head)->priority > priority) { 
-  
+        printf("%d\n",(*head)->time);
         // Insert New person before head 
-        temp->next = *head; 
-        (*head) = temp; 
+        //temp->next = *head; 
+        //(*head) = temp; 
+        temp->next=(*head)->next;
+        (*head)->next=temp;
     } 
     else {
         if(start->next==NULL){
-            start->next=temp;
+            (*head)->next=temp;
+            temp->next=NULL;
         }
         else{
         // Traverse the list and find a 
