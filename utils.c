@@ -46,7 +46,7 @@ void updateWaitingTime(terminal *head)
         {
             temp->waitingTime+=tempQ->time;
             temp->curStatus++;
-            printf("%d ",tempQ->time);            //adds waiting time of all people
+            printf("%d(%d) ",tempQ->time,tempQ->priority);            //adds waiting time of all people
             tempQ=tempQ->next;
         }
         printf("\n");
