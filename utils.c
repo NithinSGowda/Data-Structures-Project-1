@@ -255,6 +255,20 @@ void actualSimulation(terminal *head)
         displayQueues(head);
     }
     else{
+        terminal *temp;
+        person *tempq;
+        while(head!=NULL)
+        {
+            while(head->q!=NULL)
+            {
+                tempq=head->q->next;
+                free(head->q);
+                head->q=tempq;
+            }
+            temp=head->next;
+            free(head);
+            head=temp;
+        }
         exit(0);
     }
         
