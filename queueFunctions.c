@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "header.h"
+extern int totalPeople;
 
 person *newPerson(int time, int priority)
 {
@@ -13,6 +14,7 @@ person *newPerson(int time, int priority)
     temp->time = time;
     temp->priority = priority;
     temp->next = NULL;
+    totalPeople++;
     return temp;
 }
 

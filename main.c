@@ -2,6 +2,7 @@
 #include<string.h>
 #include<stdlib.h>
 #include "header.h"
+int totalPeople=0;
 
 int main()
 {

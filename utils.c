@@ -3,6 +3,7 @@
 #include<stdlib.h>
 #include<time.h>
 #include "header.h"
+extern int totalPeople;
 
 terminal* createTerminals(int i,int sizeOfTerminal)
 {
@@ -250,6 +251,8 @@ void actualSimulation(terminal *head)
             free(head);
             head=temp;
         }
+        printf("\n\nTotal people handled today : %d\n",totalPeople);
+        printf("Thanks for using out terminal simulator\n\n");
         exit(0);
     }
     

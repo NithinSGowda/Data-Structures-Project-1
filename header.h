@@ -15,7 +15,6 @@ typedef struct TERMINAL{
 }terminal;
 
 
-
 terminal* createTerminals(int,int);
 void updatewaitingTime(terminal*);
 terminal* beginner();
