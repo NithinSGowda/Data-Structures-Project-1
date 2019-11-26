@@ -22,7 +22,6 @@ terminal* initialisePrompt(terminal*);
 terminal* initialise(terminal*);
 terminal* displayQueues(terminal*);
 terminal* searchFastestTerminal(terminal*);
-int findWaitingTime(terminal*, person*);
 void actualSimulation(terminal*);
 
 //Queue Functions

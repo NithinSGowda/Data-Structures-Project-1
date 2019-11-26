@@ -116,6 +116,7 @@ terminal* displayQueues(terminal *head)
 {
     terminal *temp=head;
     updateWaitingTime(head);
+    printf("\n");
     while(temp!=NULL)
     {
         printf("Terminal number : %d\n",temp->terminalNumber);
@@ -149,28 +150,13 @@ terminal* searchFastestTerminal(terminal *head)
     }
     if(foundTerminal==0)
     {
+        printf("\n\nAll terminals are full\n");
+        printf("Creating a new terminal number %d for you ...\n",temp1->terminalNumber+1);
         temp1->next=createTerminals(temp1->terminalNumber+1,temp1->maxCapacity);
         temp1=temp1->next;
         minTerminal=temp1;
     }
     return minTerminal;
-}
-
-int findWaitingTime(terminal *root, person *person)
-{
-    int waitingTime=0;
-    terminal *head=root;
-    while(head->q!=NULL)
-    {
-        if(head->q==person)
-            return waitingTime+head->q->time;
-        else
-        {
-            waitingTime+=head->q->time;
-            head->q=head->q->next;
-        }
-    }
-    return waitingTime;
 }
 
 
