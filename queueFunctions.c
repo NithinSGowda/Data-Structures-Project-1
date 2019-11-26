@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "header.h"
 extern int totalPeople;
+extern char inputString[20];
 
 person *newPerson(int time, int priority)
 {

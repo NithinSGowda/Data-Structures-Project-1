@@ -4,6 +4,8 @@
 #include<time.h>
 #include "header.h"
 extern int totalPeople;
+extern char inputString[20];
+
 
 terminal* createTerminals(int i,int sizeOfTerminal)
 {
@@ -11,6 +13,10 @@ terminal* createTerminals(int i,int sizeOfTerminal)
     if(temp==NULL){
         printf("Memory Allocation of terminal %d failed\n",i);
         exit(10);
+    }
+    if(sizeOfTerminal<1){
+        printf("Sorry you have entered the wrong input for size of terminals\nMaking max size as 1\n");
+        sizeOfTerminal=1;
     }
     temp->maxCapacity=sizeOfTerminal;           //initialisation of terminal metadata to default values
     temp->curStatus=0;
@@ -47,7 +53,7 @@ terminal* beginner()
 {
     system("@cls||clear");
     printf("Welcome to Airport Check-in terminal simulator\n\n");
-    printf("Press any to start\n");
+    printf("Press ENTER to start\n");
     getchar();
     system("@cls||clear");          //clears the terminal screen
 
@@ -64,6 +70,10 @@ terminal* beginner()
     head=createTerminals(i,sizeOfTerminal);
     i++;
     terminal* temp=head;
+    if(numOfTerminals<1){
+        printf("Sorry you have entered the wrong input for number of terminals\nCreating a terminal for you\n");
+        numOfTerminals=1;
+    }
     while(i<=numOfTerminals)
     {
         temp->next=createTerminals(i,sizeOfTerminal);
@@ -168,11 +178,13 @@ void actualSimulation(terminal *head)
     terminal *allocatedTerminal=NULL;
     int Time=-1;
     printf("\n1] Add a person\n2] fast forward time\n3] Quit\n\n Enter your choice [1/2/3] : ");
-    scanf("%d",&choice);
+    scanf("%s",inputString);
+    choice=atoi(inputString);
     // while()
     if(choice==1){
         printf("Enter the person detail [ VIP(0) / pregnant_women(1) / old(2) / handicapped(3) / normal(4 or any other number)] : ");
-        scanf("%d",&inputNumber);
+        scanf("%s",inputString);
+        inputNumber=atoi(inputString);
         srand(time(NULL)+rand());
         allocatedTerminal=searchFastestTerminal(head);
         Time=rand()%10+1;
@@ -201,7 +213,8 @@ void actualSimulation(terminal *head)
     else if(choice==2){
         int time,removedTime=0;
         printf("Enter the amount of time to fast forward [in mins] : ");
-        scanf(" %d",&time);
+        scanf(" %s",inputString);
+        time=atoi(inputString);
         tempTerminal=head;
         while(tempTerminal!=NULL)
         {

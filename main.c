@@ -3,6 +3,7 @@
 #include<stdlib.h>
 #include "header.h"
 int totalPeople=0;
+char inputString[20];
 
 int main()
 {
